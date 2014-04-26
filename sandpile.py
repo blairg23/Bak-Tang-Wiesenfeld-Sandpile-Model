@@ -1,6 +1,16 @@
 from pylab import *
+import os
+
 numberBreaks = 0
 
+#Save a file with a given filename and directory
+#Creates directory if it doesn't exist.
+def saveFile(fileName, directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    savefig(fileName)
+
+        
 #Sandpile increase function:
 def increase(m, x, y, critLevel,N):
     global numberBreaks
@@ -45,14 +55,14 @@ def dribbleOnPoint(m,x,y,critLevel,N):
 N = 15 #Size of matrix
 p = .001 #Amount of change each grain undergoes
 critLevel = 4 #Critical Level
-iterations = 5000#50, 250, 500, 1000, 1500, 2000, 2500, 5000, 10000, 25000, 50000]
+iterations = 50#, 250, 500, 1000, 1500, 2000, 2500, 5000, 10000, 25000, 50000]
 
 
 #Initialize modes:
 mode = 'SpecificMiddle' #Modes: Random, SpecificCorners, SpecificMiddle
 initMode = 'OverCrit' #Modes: RandomInt, RandomFloat, Static, NearCrit, OverCrit
-animated = False #Set to true if you want to see animation
-save = True #Set to true to save the file
+animated = True #Set to true if you want to see animation
+save = False#Set to true to save the file
 
 #Matrix of grains of sand:
 if initMode == 'RandomFloat':
@@ -123,7 +133,9 @@ if mode == 'Random':
 
     if save:
         fileName = 'images/' + str(initMode) + '_' + str(mode) + '/' + str(initMode) + '_' + str(mode) + '_' + str(i+1) + '.png'
-        #draw()
+        directory = 'images/' + str(initMode) + '_' + str(mode) + '/'
+        saveFile(fileName, directory)        
+        draw()        
 
 
 
@@ -166,7 +178,10 @@ if mode == 'SpecificCorners':
 
     if save:
         fileName = 'images/' + str(initMode) + '_' + str(mode) + '/' + str(initMode) + '_' + str(mode) + '_' + str(i+1) + '.png'
-        #draw()
+        directory = 'images/' + str(initMode) + '_' + str(mode) + '/'
+        saveFile(fileName, directory) 
+        show()
+
     
 
 if mode == 'SpecificMiddle':
@@ -197,8 +212,9 @@ if mode == 'SpecificMiddle':
 
     if save:
         fileName = 'images/' + str(initMode) + '_' + str(mode) + '/' + str(initMode) + '_' + str(mode) + '_' + str(i+1) + '.png'
-        #draw()
-
+        directory = 'images/' + str(initMode) + '_' + str(mode) + '/'
+        saveFile(fileName, directory)
+        show()
 
 ioff()
 
@@ -211,11 +227,14 @@ freq = []
 for s in size:
     freq.append(freqPlot[s])
 
-
+print size
+print freq
+"""
+#THIS ONE WORKS:
 clf()
 figure(0)
 loglog(size, freq, 'go-')
-title('Size of Avalanche vs. Frequency of Occurence ($i = %d$ iterations)' %iterations, family=fontFamily, size=fontSize)
+title('Size of Avalanche vs. Frequency of Occurrence ($i = %d$ iterations)' %iterations, family=fontFamily, size=fontSize)
 xlabel('Size (grains)', family=fontFamily, size=int(fontSize)/1.5)
 ylabel('Frequency', family=fontFamily, size=int(fontSize)/1.5)
 #Text box:
@@ -225,6 +244,8 @@ fig_text = figtext(0.75,0.75, 'Iterations: ' + str(iterations) + '\n'
                     backgroundcolor='black', size=int(fontSize)/1.5,
                     family=fontFamily)
 show()
+"""
+
 
 """
 clf()
