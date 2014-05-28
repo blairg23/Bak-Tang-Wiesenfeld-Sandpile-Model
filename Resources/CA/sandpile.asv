@@ -1,0 +1,45 @@
+clear all
+
+lattice_state = 'static';
+
+N = 50; %Size of lattice
+critLevel = 4;
+
+%lattice:
+if strcmp(lattice_state,'static')
+    M = zeros(N, N);
+else if strcmp(lattice_state,'random')
+    M = randi([0, critLevel-1], N, N);
+    end
+end
+
+dribble_point = 'middle';
+
+iterations = 1000;
+for i = 1:iterations
+    if strcmp(dribble_point, 'random')
+        x = randi(N);
+        y = randi(N);
+    else if strcmp(dribble_point, 'middle')
+        x = N/2;
+        y = N/2;
+        end
+    end
+    
+    M = feval('increase',M, x, y, critLevel, N);    
+    imagesc(M);
+    %colormap(flipud('Hot'));
+    %colormap('Hot');
+    %colormap('Jet');
+    colormap('HSV');
+    title(strcat('Iteration: ', num2str(i)));
+    %colormap(flipud(gray)); %for gray-scale (which nobody likes)
+    %axis equal
+    mov(i) = getframe;
+end
+
+%movie(mov, 30)
+
+%imagesc(M);
+%colormap(flipud('HSV'));
+%title(strcat('Iteration: ', num2str(i)));

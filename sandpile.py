@@ -1,4 +1,5 @@
 from pylab import *
+import matplotlib.pyplot as plt
 import os
 
 numberBreaks = 0
@@ -52,10 +53,10 @@ def dribbleOnPoint(m,x,y,critLevel,N):
 
 
 #Initialize constants:
-N = 15 #Size of matrix
+N = 21 #Size of matrix
 p = .001 #Amount of change each grain undergoes
 critLevel = 4 #Critical Level
-iterations = 50#, 250, 500, 1000, 1500, 2000, 2500, 5000, 10000, 25000, 50000]
+iterations = 50#50, 250, 500, 1000, 1500, 2000, 2500, 5000, 10000, 25000, 50000]
 
 
 #Initialize modes:
@@ -87,7 +88,12 @@ fontSize = '25'
 #Plot matrix here:
 ion()
 clf()
-imshow(z, vmin=0, vmax=critLevel, alpha=1)
+
+F = gcf()
+Size = F.get_size_inches()
+F.set_size_inches(Size[0]*2, Size[1]*2, forward=True)#Set forward to True to resize window along with plot in figure.
+
+plt.imshow(z, vmin=0, vmax=critLevel, alpha=1)
 
 #Colorbar stuff:
 cb = colorbar(orientation='horizontal')
@@ -127,9 +133,9 @@ if mode == 'Random':
 
         z = array(z)
         if animated:
-            imshow(z)
-            draw()
-    imshow(z)
+            plt.imshow(z)
+            plt.draw()
+    plt.imshow(z)
 
     if save:
         fileName = 'images/' + str(initMode) + '_' + str(mode) + '/' + str(initMode) + '_' + str(mode) + '_' + str(i+1) + '.png'
@@ -171,10 +177,10 @@ if mode == 'SpecificCorners':
         dribbleOnPoint(z,x,y,critLevel,N)
         
         if animated:
-            imshow(z)
-            draw()
+            plt.imshow(z)
+            plt.draw()
 
-    imshow(z)
+    plt.imshow(z)
 
     if save:
         fileName = 'images/' + str(initMode) + '_' + str(mode) + '/' + str(initMode) + '_' + str(mode) + '_' + str(i+1) + '.png'
@@ -205,10 +211,10 @@ if mode == 'SpecificMiddle':
 
 
         if animated:
-            imshow(z)
-            draw()
+            plt.imshow(z)
+            plt.draw()
     
-    imshow(z)
+    plt.imshow(z)
 
     if save:
         fileName = 'images/' + str(initMode) + '_' + str(mode) + '/' + str(initMode) + '_' + str(mode) + '_' + str(i+1) + '.png'
@@ -227,8 +233,8 @@ freq = []
 for s in size:
     freq.append(freqPlot[s])
 
-print size
-print freq
+print 'Size of Avalanches:' + str(size)
+print 'Frequency of Avalanches:' + str(freq)
 """
 #THIS ONE WORKS:
 clf()

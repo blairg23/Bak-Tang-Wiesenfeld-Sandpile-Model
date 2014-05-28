@@ -1,0 +1,27 @@
+function[m, numberBreaks] = increase(m, x, y, critLevel, N, numberBreaks)
+    %Function to increase the slope of a given part of the NxN lattice, m
+    %at point (x, y). If it reaches a given critical level, the slope
+    %topples back to 0.
+    isBoundary = false;
+    %If we reached a boundary:
+    if x <= 1 || x >= N
+        isBoundary = true;        
+    else if y < 0 || y >= N
+        isBoundary = true;
+        end
+    end
+    
+    if isBoundary == false
+        m(x, y) = m(x, y) + 1;
+        numberBreaks = numberBreaks + 1;
+    end
+    
+    if m(x, y) >= critLevel %If we're past the critical slope
+        %Start the cascade:
+        m(x, y) = m(x, y) - 4;         
+        [m, numberBreaks] = increase(m, x+1, y, critLevel, N, numberBreaks);
+        [m, numberBreaks] = increase(m, x-1, y, critLevel, N, numberBreaks);
+        [m, numberBreaks] = increase(m, x, y+1, critLevel, N, numberBreaks);
+        [m, numberBreaks] = increase(m, x, y-1, critLevel, N, numberBreaks);
+    end
+end
