@@ -33,7 +33,7 @@ else if strcmp(lattice_state,'random')
     end
 end
 
-iterations = 25000;
+iterations = 20000;
 set(0, 'RecursionLimit', 1000); %resets maximum recursion limit
 for i = 1:iterations
     if strcmp(dribble_point, 'random')
@@ -50,7 +50,7 @@ for i = 1:iterations
      if animation == 1
         imagesc(M); %shows matrix values as colors
         colormap('Copper'); %Hot, Jet, HSV, Autumn, Copper, and Gray are options here
-        title({'Bak-Tang-Wiesenfeld Sandpile Model';strcat('# of Iterations: ', num2str(i))});
+        title({'Bak-Tang-Wiesenfeld Sandpile Model....';strcat('# of Iterations: ', num2str(i), '....')});
         mov(i) = getframe; %If you want to repeat the animation
      end
     %axis equal
@@ -63,7 +63,7 @@ imagesc(M); %shows matrix values as colors
 colormap('Copper'); %Hot, Jet, HSV, Autumn, Copper, and Gray are options here
 colorbar; %shows color bar
 CmLength   = length(colormap); %how long colorbar should be
-t = title({'Bak-Tang-Wiesenfeld Sandpile Model';strcat('# of Iterations: ', num2str(i))});
+t = title({'Bak-Tang-Wiesenfeld Sandpile Model....';strcat('# of Iterations: ', num2str(i), '....')});
 set(t, 'FontSize', 15);
 set(gca, 'FontSize', 15);
 
